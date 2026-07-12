@@ -1,4 +1,4 @@
-#include"DxLib.h"
+#include"Dxlib.h"
 #include"Game.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
