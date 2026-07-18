@@ -9,8 +9,8 @@ namespace Config
 	constexpr int WINDOW_WIDTH = 1920;
 	constexpr int WINDOW_HEIGHT = 1080;
 	//表示するX,Y座標
-	constexpr int OLAYER_DRAW_X = 96;
-	constexpr int OLAYER_DRAW_Y = 96;
+	constexpr int PLAYER_DRAW_X = 96;
+	constexpr int PLAYER_DRAW_Y = 96;
 
 	//===================================
 	//Player settings

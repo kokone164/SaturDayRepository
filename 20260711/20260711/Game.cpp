@@ -43,7 +43,7 @@ void Game::Update()
 	{
 		switch (currentAnim)
 		{
-		case AnimationType::Idle:
+		case AnimationType::Idle: 
 			currentAnim = AnimationType::Walk;
 			break;
 		case AnimationType::Walk:
@@ -74,8 +74,8 @@ void Game::Update()
 
 void Game::Draw()
 {
-	DrawGraph(Config::OLAYER_DRAW_X,
-		Config::OLAYER_DRAW_Y,
+	DrawGraph(Config::PLAYER_DRAW_X,
+		Config::PLAYER_DRAW_Y,
 		animations.GetImage(frameManager.GetFrameCounter()),
 		TRUE);
 
