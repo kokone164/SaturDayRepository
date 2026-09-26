@@ -1,9 +1,9 @@
 #include"Map.h"
 #include"Collision.h"
-#include"Dxlib.h"
+#include"DxLib.h"
 
 //========================================================
-//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 //========================================================
 
 Map::Map()
@@ -15,7 +15,7 @@ Map::Map()
 }
 
 //========================================================
-//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//ƒfƒXƒgƒ‰ƒNƒ^
 //========================================================
 
 Map::~Map()
@@ -32,7 +32,7 @@ Map::~Map()
 }
 
 //========================================================
-//åˆæœŸåŒ–
+//‰Šú‰»
 //========================================================
 
 bool Map::Init()
@@ -42,7 +42,7 @@ bool Map::Init()
 
 		Config::MAP_IMG_X_NUM * Config::MAP_IMG_Y_NUM,
 
-		Config::MAP_IMG_X_NUM, Config::MAP_Y_NUM,
+		Config::MAP_IMG_X_NUM, Config::MAP_IMG_Y_NUM,
 
 		Config::MAP_CHIP_SIZE, Config::MAP_CHIP_SIZE,
 
@@ -53,7 +53,7 @@ bool Map::Init()
 }
 
 //========================================================
-//æç”»
+//•`‰æ
 //========================================================
 
 void Map::Draw()
@@ -72,7 +72,7 @@ void Map::Draw()
 }
 
 //========================================================
-//Xæ–¹å‘ã®è¡çªå‡¦ç†
+//X•ûŒü‚ÌÕ“Ëˆ—
 //========================================================
 
 bool Map::ResolveHorizontalCollision(float& x, float y, float width, float height, float moveX) const
@@ -80,7 +80,7 @@ bool Map::ResolveHorizontalCollision(float& x, float y, float width, float heigh
 	bool hit = false;
 
 	//========================================================
-	//ç§»å‹•ã—ã¦ã„ãªã„å ´åˆã¯åˆ¤å®šã—ãªã„
+	//ˆÚ“®‚µ‚Ä‚¢‚È‚¢ê‡‚Í”»’è‚µ‚È‚¢
 	//========================================================
 	
 	if (moveX == 0.0f)
@@ -89,21 +89,21 @@ bool Map::ResolveHorizontalCollision(float& x, float y, float width, float heigh
 	}
 
 	//========================================================
-	//ãƒãƒƒãƒ—å…¨ä½“ã‚’æ¤œç´¢
+	//ƒ}ƒbƒv‘S‘Ì‚ğŒŸõ
 	//========================================================
 
-	for (int iy = 0; iy < Config::MAP_IMG_Y_NUM; iy++)
+	for (int iy = 0; iy < Config::MAP_Y_NUM; iy++)
 	{
 		for (int ix = 0; ix < Config::MAP_X_NUM; ix++)
 		{
-			//0 = é€šè¡Œå¯èƒ½
+			//0 = ’Ês‰Â”\
 			if (map[iy][ix] == 0)
 			{
 				continue;
 			}
 
 			//========================================================
-			//ãƒ–ãƒ­ãƒƒã‚¯åº§æ¨™
+			//ƒuƒƒbƒNÀ•W
 			//========================================================
 
 			float blockX = ix * Config::MAP_CHIP_SIZE;
@@ -115,7 +115,7 @@ bool Map::ResolveHorizontalCollision(float& x, float y, float width, float heigh
 			float blockBottom = blockY + Config::MAP_CHIP_SIZE;
 
 			//========================================================
-			//è¡çªåˆ¤å®š
+			//Õ“Ë”»’è
 			//========================================================
 
 			if (!Collision::IsHitRect(x, y, x + width, y + height, blockX, blockY, blockRight, blockBottom))
@@ -126,7 +126,7 @@ bool Map::ResolveHorizontalCollision(float& x, float y, float width, float heigh
 			hit = true;
 
 			//========================================================
-			//å³æ–¹å‘ã¸ç§»å‹•
+			//‰E•ûŒü‚ÖˆÚ“®
 			//========================================================
 
 			if (moveX > 0.0f)
@@ -135,7 +135,7 @@ bool Map::ResolveHorizontalCollision(float& x, float y, float width, float heigh
 			}
 
 			//========================================================
-			//å·¦æ–¹å‘ã¸ç§»å‹•
+			//¶•ûŒü‚ÖˆÚ“®
 			//========================================================
 
 			else
@@ -149,7 +149,7 @@ bool Map::ResolveHorizontalCollision(float& x, float y, float width, float heigh
 }
 
 //========================================================
-//Yæ–¹å‘ã®è¡çªå‡¦ç†
+//Y•ûŒü‚ÌÕ“Ëˆ—
 //========================================================
 
 bool Map::ResolveVerticalCollision(float x, float& y, float width, float height, float moveY)const
@@ -157,7 +157,7 @@ bool Map::ResolveVerticalCollision(float x, float& y, float width, float height,
 	bool hit = false;
 
 	//========================================================
-	//ç§»å‹•ã—ã¦ã„ãªã„å ´åˆã¯åˆ¤å®šã—ãªã„
+	//ˆÚ“®‚µ‚Ä‚¢‚È‚¢ê‡‚Í”»’è‚µ‚È‚¢
 	//========================================================
 
 	if (moveY == 0.0f)
@@ -166,21 +166,21 @@ bool Map::ResolveVerticalCollision(float x, float& y, float width, float height,
 	}
 
 	//========================================================
-	//ãƒãƒƒãƒ—å…¨ä½“ã‚’æ¤œç´¢
+	//ƒ}ƒbƒv‘S‘Ì‚ğŒŸõ
 	//========================================================
 
 	for (int iy = 0; iy < Config::MAP_Y_NUM; iy++)
 	{
 		for (int ix = 0; ix < Config::MAP_X_NUM; ix++)
 		{
-			//0 = é€šè¡Œå¯èƒ½
+			//0 = ’Ês‰Â”\
 			if (map[iy][ix] == 0)
 			{
 				continue;
 			}
 
 			//========================================================
-			//ãƒ–ãƒ­ãƒƒã‚¯åº§æ¨™
+			//ƒuƒƒbƒNÀ•W
 			//========================================================
 
 			float blockX = ix * Config::MAP_CHIP_SIZE;
@@ -192,7 +192,7 @@ bool Map::ResolveVerticalCollision(float x, float& y, float width, float height,
 			float blockBottom = blockY + Config::MAP_CHIP_SIZE;
 
 			//========================================================
-			//è¡çªåˆ¤å®š
+			//Õ“Ë”»’è
 			//========================================================
 
 			if (!Collision::IsHitRect(x, y, x + width, y + height, blockX, blockY, blockRight, blockBottom))
@@ -203,7 +203,7 @@ bool Map::ResolveVerticalCollision(float x, float& y, float width, float height,
 			hit = true;
 
 			//========================================================
-			//ä¸‹æ–¹å‘ã¸ç§»å‹•
+			//‰º•ûŒü‚ÖˆÚ“®
 			//========================================================
 
 			if (moveY > 0.0f)
@@ -212,7 +212,7 @@ bool Map::ResolveVerticalCollision(float x, float& y, float width, float height,
 			}
 
 			//========================================================
-			//ä¸Šæ–¹å‘ã¸ç§»å‹•
+			//ã•ûŒü‚ÖˆÚ“®
 			//========================================================
 
 			else
@@ -226,7 +226,7 @@ bool Map::ResolveVerticalCollision(float x, float& y, float width, float height,
 }
 
 //========================================================
-//ãƒ–ãƒ­ãƒƒã‚¯ç¨®é¡å–å¾—
+//ƒuƒƒbƒNí—Şæ“¾
 //========================================================
 
 unsigned char Map::GetBlockType(int ix, int iy)const

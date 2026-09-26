@@ -1,11 +1,11 @@
 #include "Player.h"
 #include"Map.h"
-#include"Dxlib.h"
+#include"DxLib.h"
 
 namespace
 {
 	//========================================================
-	//„Ç¢„Éã„É°„Éº„Ç∑„Éß„É≥ÊñπÂêë
+	//ÉAÉjÉÅÅ[ÉVÉáÉìï˚å¸
 	//========================================================
 
 	constexpr int ANIM_DOWN = 0;
@@ -15,7 +15,7 @@ namespace
 }
 
 //========================================================
-//„Ç≥„É≥„Çπ„Éà„É©„ÇØ„Çø
+//ÉRÉìÉXÉgÉâÉNÉ^
 //========================================================
 
 Player::Player()
@@ -42,7 +42,7 @@ Player::Player()
 }
 
 //========================================================
-//„Éá„Çπ„Éà„É©„ÇØ„Çø
+//ÉfÉXÉgÉâÉNÉ^
 //========================================================
 
 Player::~Player()
@@ -59,13 +59,13 @@ Player::~Player()
 }
 
 //========================================================
-//ÂàùÊúüÂåñ
+//èâä˙âª
 //========================================================
 
 bool Player::Init()
 {
 	//========================================================
-	//ÂàùÊúüÂ∫ßÊ®ô
+	//èâä˙ç¿ïW
 	//========================================================
 
 	x = Config::PLAYER_START_X;
@@ -82,7 +82,7 @@ bool Player::Init()
 	animNowIndex = animNowPattern + animNowType * Config::ANIM_PATTERN_NUM;
 
 	//========================================================
-	//ÁîªÂÉèË™≠„ÅøËæº„Åø
+	//âÊëúì«Ç›çûÇ›
 	//========================================================
 
 	int result = LoadDivGraph(Config::PLAYER_IMAGE_PATH, Config::ANIM_PATTERN_NUM * Config::ANIM_TYPE_NUM,
@@ -94,7 +94,7 @@ bool Player::Init()
 	}
 
 	//========================================================
-	//ÊèèÁîª‰ΩçÁΩÆË£úÊ≠£
+	//ï`âÊà íuï‚ê≥
 	//========================================================
 
 	drawOffsetX = (Config::PLAYER_HIT_SIZE_X - Config::PLAYER_IMAGE_SIZE_X) / 2;
@@ -105,13 +105,13 @@ bool Player::Init()
 }
 
 //========================================================
-//Êõ¥Êñ∞
+//çXêV
 //========================================================
 
-void Player::Update(float deltaTime, const Map& mmap)
+void Player::Update(float deltaTime, const Map& map)
 {
 	//========================================================
-	//ÈÄüÂ∫¶„Çí„É™„Çª„ÉÉ„Éà
+	//ë¨ìxÇÉäÉZÉbÉg
 	//========================================================
 
 	velocityX = 0.0f;
@@ -120,7 +120,7 @@ void Player::Update(float deltaTime, const Map& mmap)
 	bool isMove = false;
 
 	//========================================================
-	//„Ç≠„ÉºÂÖ•Âäõ
+	//ÉLÅ[ì¸óÕ
 	//========================================================
 
 	if(CheckHitKey(KEY_INPUT_UP))
@@ -134,7 +134,7 @@ void Player::Update(float deltaTime, const Map& mmap)
 
 	if (CheckHitKey(KEY_INPUT_DOWN))
 	{
-		velocityX = -Config::PLAYER_MOVE_SPEED;
+		velocityY = Config::PLAYER_MOVE_SPEED;
 
 		animNowType = ANIM_DOWN;
 
@@ -152,7 +152,7 @@ void Player::Update(float deltaTime, const Map& mmap)
 
 	if (CheckHitKey(KEY_INPUT_RIGHT))
 	{
-		velocityX = -Config::PLAYER_MOVE_SPEED;
+		velocityX = Config::PLAYER_MOVE_SPEED;
 
 		animNowType = ANIM_RIGHT;
 
@@ -160,7 +160,7 @@ void Player::Update(float deltaTime, const Map& mmap)
 	}
 
 	//========================================================
-	//ÁßªÂãïÈáè
+	//à⁄ìÆó 
 	//========================================================
 
 	float moveX = velocityX * deltaTime;
@@ -168,11 +168,64 @@ void Player::Update(float deltaTime, const Map& mmap)
 	float moveY = velocityY * deltaTime;
 
 	//========================================================
-	//XÊñπÂêëÁßªÂãï
+	//Xï˚å¸à⁄ìÆ
 	//========================================================
 
 	x += moveX;
 
-	map.ResolveHorizonalCollision(x, y, Config::PLAYER_HIT_SIZE_X, Config::PLAYER_HIT_SIZE_Y, moveX);
+	map.ResolveHorizontalCollision(x, y, Config::PLAYER_HIT_SIZE_X, Config::PLAYER_HIT_SIZE_Y, moveX);
 
+	//========================================================
+	//Yï˚å¸à⁄ìÆ
+	//========================================================
+
+	y += moveY;
+
+	map.ResolveVerticalCollision(x, y, Config::PLAYER_HIT_SIZE_X, Config::PLAYER_HIT_SIZE_Y, moveY);
+
+	//========================================================
+	//ÉAÉjÉÅÅ[ÉVÉáÉì
+	//========================================================
+
+	if (isMove)
+	{
+		animTimer += deltaTime;
+
+		if (animTimer >= 1.0f / Config::ANIMATION_FPS)
+		{
+			animTimer = 0.0f;
+
+			animNowPattern++;
+
+			animNowPattern %= Config::ANIM_PATTERN_NUM;
+		}
+	}
+	else
+	{
+		//ê√é~éû
+		animNowPattern = 1;
+	}
+
+	//========================================
+	// ï`âÊÇ∑ÇÈâÊëúî‘çÜ
+	//========================================
+
+	animNowIndex = animNowPattern + animNowType * Config::ANIM_PATTERN_NUM;
+}
+
+//========================================
+// ï`âÊ
+//========================================
+
+void Player::Draw()
+{
+	DrawGraph(static_cast<int>(x) + drawOffsetX, static_cast<int>(y) + drawOffsetY, playerImg[animNowIndex], TRUE);
+
+
+	//========================================
+	// ìñÇΩÇËîªíËï\é¶
+	//========================================
+
+	DrawBox(static_cast<int>(x), static_cast<int>(y), static_cast<int>(x + Config::PLAYER_HIT_SIZE_X - 1),
+		static_cast<int>(y + Config::PLAYER_HIT_SIZE_Y - 1), GetColor(255, 0, 0), FALSE);
 }

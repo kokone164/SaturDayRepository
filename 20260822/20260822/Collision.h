@@ -3,17 +3,8 @@ class Collision
 {
 public:
 	/// <summary>
-	/// çŸ­å½¢åŒå£«ãŒè¡çªã—ã¦ã„ã‚‹ã‹èª¿ã¹ã‚‹
+	/// ’ZŒ`“¯m‚ªÕ“Ë‚µ‚Ä‚¢‚é‚©’²‚×‚é
 	/// </summary>
-	/// <param name="left1"></param>
-	/// <param name="top1"></param>
-	/// <param name="right1"></param>
-	/// <param name="bottom1"></param>
-	/// <param name="left2"></param>
-	/// <param name="top2"></param>
-	/// <param name="right2"></param>
-	/// <param name="bottom2"></param>
-	/// <returns></returns>
 	static bool IsHitRect(float left1, float top1, float right1, float bottom1,
 		float left2, float top2, float right2, float bottom2);
 };
